@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- File that defines the macro structure of the app. This includes page definitions and also
+links between those pages -->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/WelcomeFragment">
+
+    <fragment
+        android:id="@+id/WelcomeFragment"
+        android:name="com.example.flowpass.welcome.WelcomeFragment"
+        android:label="Welcome"
+        tools:layout="@layout/fragment_welcome">
+        <action
+            android:id="@+id/action_WelcomeFragment_to_HomeFragment"
+            app:destination="@id/HomeFragment" />
+        <action
+            android:id="@+id/action_WelcomeFragment_to_RegisterFragment"
+            app:destination="@id/RegisterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/RegisterFragment"
+        android:name="com.example.flowpass.register.RegisterFragment"
+        android:label="Initialise"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/action_RegisterFragment_to_WelcomeFragment"
+            app:destination="@id/WelcomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/HomeFragment"
+        android:name="com.example.flowpass.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_HomeFragment_to_WelcomeFragment"
+            app:destination="@id/WelcomeFragment" />
+        <action
+            android:id="@+id/action_HomeFragment_to_AddFragment"
+            app:destination="@id/AddFragment" />
+        <action
+            android:id="@+id/action_HomeFragment_to_EntryFragment"
+            app:destination="@id/EntryFragment">
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/AddFragment"
+        android:name="com.example.flowpass.add.AddFragment"
+        android:label="Create"
+        tools:layout="@layout/fragment_add">
+        <action
+            android:id="@+id/action_AddFragment_to_HomeFragment"
+            app:destination="@id/HomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/EntryFragment"
+        android:name="com.example.flowpass.entry.EntryFragment"
+        android:label="Update or Delete"
+        tools:layout="@layout/fragment_entry">
+        <argument
+            android:name="entryId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_EntryFragment_to_HomeFragment"
+            app:destination="@id/HomeFragment" />
+    </fragment>
+</navigation>

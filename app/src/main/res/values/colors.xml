@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Colours used by app, defined using HTML notation -->
+<resources>
+    <color name="background">#dee</color>
+    <color name="deep_ocean">#017</color>
+    <color name="ocean">#0033cc</color>
+    <color name="river">#50b2e4</color>
+    <color name="puddle">#80d0f0</color>
+    <color name="splash">#aef</color>
+    <color name="black">#ff000000</color>
+    <color name="grey">#888</color>
+    <color name="white">#fff</color>
+    <color name="rocks">@color/ocean</color>
+</resources>

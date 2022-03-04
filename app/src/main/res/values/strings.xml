@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">FlowPass</string>
+    <string name="menu_help">Help</string>
+    <string name="menu_reset">Reset Account</string>
+    <string name="menu_about">About</string>
+    <string name="welcome_fragment_label">Welcome</string>
+    <string name="welcome_prompt">"Register to initialise your device, then\n provide your passcode to unlock.."</string>
+    <string name="home_fragment_label">Home</string>
+    <string name="home_label_name">Name</string>
+    <string name="home_label_keywords">Keywords</string>
+    <string name="home_label_password">Password</string>
+    <string name="register_title">Register \nFlow</string>
+    <string name="register_prompt">Provide a passcode to register for FlowPass.\n This can now be used to login!</string>
+    <string name="register_caption">Water tank</string>
+    <string name="register_enter">Enter \nPasscode:</string>
+    <string name="register_confirm">Confirm:</string>
+    <string name="add_title">New \nEntry</string>
+    <string name="entry_title">Edit \nEntry</string>
+    <string name="entry_label_name">Name:</string>
+    <string name="entry_label_keywords">Keywords:</string>
+    <string name="entry_label_password">Password:</string>
+    <string name="caption_dirty">Dirty water bucket</string>
+    <string name="caption_delete_button">Delete button</string>
+    <string name="caption_pipe">Pipe image</string>
+    <string name="caption_flowing">River flowing…</string>
+    <string name="caption_unlock">Unlock button</string>
+    <string name="caption_lock">Lock button</string>
+    <string name="caption_register">Register button</string>
+    <string name="caption_add">Add button</string>
+</resources>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Defines the appearance of database entries that are grabbed using [HomeAdapter] -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="entry"
+            type="com.example.flowpass.database.Entry" />
+        <variable
+            name="clickListener"
+            type="com.example.flowpass.home.PasswordListener" />
+        <variable
+            name="selectedId"
+            type="java.lang.Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> clickListener.onClick(entry)}">
+
+        <TextView
+            android:id="@+id/name_entry"
+            android:layout_width="110dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:gravity="center_vertical"
+            android:text="@{entry.name}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="Help?" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="4dp"
+            android:background="@color/river"
+            app:layout_constraintStart_toEndOf="@+id/name_entry"
+            app:layout_constraintBottom_toBottomOf="@+id/bar"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/key1"
+            android:layout_width="140dp"
+            android:layout_height="19dp"
+            android:gravity="center"
+            android:text="@{entry.key1}"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toStartOf="@+id/password_entry"
+            app:layout_constraintStart_toEndOf="@+id/name_entry"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Help?" />
+
+
+        <TextView
+            android:id="@+id/key2"
+            android:layout_width="140dp"
+            android:layout_height="19dp"
+            android:gravity="center"
+            android:text="@{entry.key2}"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toTopOf="@+id/key3"
+            app:layout_constraintEnd_toStartOf="@+id/password_entry"
+            app:layout_constraintStart_toEndOf="@+id/name_entry"
+            app:layout_constraintTop_toBottomOf="@+id/key1"
+            tools:text="Help?" />
+
+        <TextView
+            android:id="@+id/key3"
+            android:layout_width="140dp"
+            android:layout_height="19dp"
+            android:gravity="center"
+            android:text="@{entry.key3}"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/password_entry"
+            app:layout_constraintStart_toEndOf="@+id/name_entry"
+            tools:text="Help?" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="1dp"
+            android:layout_height="41dp"
+            android:background="@color/river"
+            app:layout_constraintBottom_toBottomOf="@+id/bar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/password_entry" />
+
+        <TextView
+            android:id="@+id/password_entry"
+            android:layout_width="90dp"
+            android:layout_height="41dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:gravity="center_vertical"
+            android:textAlignment="textEnd"
+            android:text="****"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/name_entry"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="Help?"
+            tools:ignore="RtlCompat" />
+
+        <View
+            android:id="@+id/bar"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/river"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

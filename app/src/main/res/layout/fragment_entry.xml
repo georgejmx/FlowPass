@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- UI elements and appearance of the Entry screen -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="entryViewModel"
+            type="com.example.flowpass.entry.EntryViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".entry.EntryFragment">
+
+        <TextView
+            android:id="@+id/entry_title_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="62dp"
+            android:layout_marginEnd="36dp"
+            android:text="@string/entry_title"
+            android:textColor="@color/grey"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/aladin"
+            app:layout_constraintEnd_toStartOf="@+id/pipe_image"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/pipe_image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="54dp"
+            android:layout_marginEnd="80dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/dirty"
+            android:contentDescription="@string/caption_dirty" />
+
+        <TextView
+            android:id="@+id/name_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:text="@string/entry_label_name"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/new_name_entry"
+            app:layout_constraintHorizontal_bias="0.771"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/entry_title_label" />
+
+        <EditText
+            android:id="@+id/new_name_entry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            android:layout_marginTop="54dp"
+            android:ems="10"
+            android:inputType="text"
+            android:text="@{entryViewModel.name}"
+            android:onTextChanged="@{(text, start, before, count) -> entryViewModel.onEntryNameChanged(text)}"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.731"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pipe_image"
+            android:autofillHints=""
+            tools:ignore="LabelFor" />
+
+
+        <TextView
+            android:id="@+id/keys_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:backgroundTint="@color/black"
+            android:text="@string/entry_label_keywords"
+            android:textColor="@color/ocean"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/password_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name_label" />
+
+        <EditText
+            android:id="@+id/key1_entry"
+            android:layout_width="150sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="@color/ocean"
+            android:ems="10"
+            android:inputType="text"
+            android:text="@{entryViewModel.key1}"
+            android:onTextChanged="@{(text, start, before, count) -> entryViewModel.onEntryKey1Changed(text)}"
+            android:textColor="@color/ocean"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.731"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/new_name_entry"
+            android:autofillHints=""
+            tools:ignore="LabelFor" />
+
+        <EditText
+            android:id="@+id/key2_entry"
+            android:layout_width="150sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="@color/ocean"
+            android:ems="10"
+            android:inputType="text"
+            android:text="@{entryViewModel.key2}"
+            android:onTextChanged="@{(text, start, before, count) -> entryViewModel.onEntryKey2Changed(text)}"
+            android:textColor="@color/ocean"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.731"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/key1_entry"
+            android:importantForAutofill="no"
+            tools:ignore="LabelFor" />
+
+        <EditText
+            android:id="@+id/key3_entry"
+            android:layout_width="150sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="@color/ocean"
+            android:ems="10"
+            android:inputType="text"
+            android:text="@{entryViewModel.key3}"
+            android:onTextChanged="@{(text, start, before, count) -> entryViewModel.onEntryKey3Changed(text)}"
+            android:textColor="@color/ocean"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.731"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/key2_entry"
+            android:autofillHints=""
+            tools:ignore="LabelFor" />
+
+        <TextView
+            android:id="@+id/password_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/entry_label_password"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/new_pass_entry"
+            app:layout_constraintHorizontal_bias="0.625"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name_label"
+            app:layout_constraintVertical_bias="0.573"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/new_pass_entry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:onTextChanged="@{(text, start, before, count) -> entryViewModel.onEntryPassChanged(text)}"
+            android:text="@{entryViewModel.pass}"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/fab_delete"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.731"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/key3_entry"
+            app:layout_constraintVertical_bias="0.278"
+            tools:ignore="Autofill,LabelFor" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="18dp"
+            android:layout_marginEnd="18dp"
+            android:tint="@color/white"
+            android:onClick="@{() -> entryViewModel.onDelete()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_delete"
+            tools:layout_editor_absoluteX="339dp"
+            android:contentDescription="@string/caption_delete_button" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="18dp"
+            android:layout_marginEnd="18dp"
+            android:tint="@color/white"
+            android:onClick="@{() -> entryViewModel.onEdit()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/fab_delete"
+            app:srcCompat="@android:drawable/ic_menu_save"
+            android:contentDescription="@string/caption_add" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

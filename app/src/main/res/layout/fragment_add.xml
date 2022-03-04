@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- UI elements and appearance of the Add screen -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="addViewModel"
+            type="com.example.flowpass.add.AddViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".add.AddFragment">
+
+        <TextView
+            android:id="@+id/add_title_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="62dp"
+            android:layout_marginEnd="36dp"
+            android:text="@string/add_title"
+            android:textColor="@color/grey"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/aladin"
+            app:layout_constraintEnd_toStartOf="@+id/pipe_image"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/pipe_image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="54dp"
+            android:layout_marginEnd="80dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pipe"
+            android:contentDescription="@string/caption_pipe" />
+
+
+        <TextView
+            android:id="@+id/name_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:text="@string/entry_label_name"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/new_name_entry"
+            app:layout_constraintHorizontal_bias="0.891"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_title_label" />
+
+        <EditText
+            android:id="@+id/new_name_entry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            android:layout_marginTop="54dp"
+            android:ems="10"
+            android:inputType="text"
+            android:onTextChanged="@{(text, start, before, count) -> addViewModel.onEntryNameChanged(text)}"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.731"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pipe_image"
+            tools:ignore="Autofill,LabelFor" />
+
+
+        <TextView
+            android:id="@+id/keys_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="76dp"
+            android:backgroundTint="@color/black"
+            android:text="@string/entry_label_keywords"
+            android:textColor="@color/ocean"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/password_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name_label" />
+
+        <EditText
+            android:id="@+id/key1_entry"
+            android:layout_width="150sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="@color/ocean"
+            android:ems="10"
+            android:inputType="text"
+            android:onTextChanged="@{(text, start, before, count) -> addViewModel.onEntryKey1Changed(text)}"
+            android:textColor="@color/ocean"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.731"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/new_name_entry"
+            tools:ignore="Autofill,LabelFor" />
+
+        <EditText
+            android:id="@+id/key2_entry"
+            android:layout_width="150sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/ocean"
+            android:ems="10"
+            android:inputType="text"
+            android:onTextChanged="@{(text, start, before, count) -> addViewModel.onEntryKey2Changed(text)}"
+            android:textColor="@color/ocean"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.731"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/key1_entry"
+            tools:ignore="Autofill,LabelFor" />
+
+        <EditText
+            android:id="@+id/key3_entry"
+            android:layout_width="150sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="@color/ocean"
+            android:ems="10"
+            android:inputType="text"
+            android:onTextChanged="@{(text, start, before, count) -> addViewModel.onEntryKey3Changed(text)}"
+            android:textColor="@color/ocean"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.731"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/key2_entry"
+            tools:ignore="Autofill,LabelFor" />
+
+        <TextView
+            android:id="@+id/password_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/entry_label_password"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/new_pass_entry"
+            app:layout_constraintHorizontal_bias="0.833"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name_label"
+            app:layout_constraintVertical_bias="0.597" />
+
+        <EditText
+            android:id="@+id/new_pass_entry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            android:ems="10"
+            android:inputType="text"
+            android:tint="@color/white"
+            android:onTextChanged="@{(text, start, before, count) -> addViewModel.onEntryPassChanged(text)}"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/fab_submit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.731"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/key3_entry"
+            app:layout_constraintVertical_bias="0.319"
+            tools:ignore="Autofill,LabelFor" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="18dp"
+            android:layout_marginEnd="18dp"
+            android:tint="@color/white"
+            android:onClick="@{() -> addViewModel.onSubmit()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_save"
+            tools:layout_editor_absoluteX="339dp"
+            android:contentDescription="@string/caption_add" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

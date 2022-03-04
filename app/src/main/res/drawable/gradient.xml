@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Defines the background wallpaper of the entire app -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:type="linear"
+        android:startColor="@color/splash"
+        android:endColor="@color/white"
+        android:gradientRadius="700dp"
+        android:centerY="0.2"
+        android:centerX="0.1"
+        android:angle="90" />
+</shape>

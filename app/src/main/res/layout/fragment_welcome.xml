@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- UI elements and appearance of the Welcome screen -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="welcomeViewModel"
+            type="com.example.flowpass.welcome.WelcomeViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".welcome.WelcomeFragment">
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:fontFamily="@font/aladin"
+            android:text="@string/app_name"
+            android:textColor="@color/grey"
+            android:textSize="60sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/text_edit_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="60dp"
+            android:ems="10"
+            android:textColor="@color/black"
+            android:inputType="textPassword"
+            android:backgroundTint="@color/black"
+            android:onTextChanged="@{(text, start, before, count) -> welcomeViewModel.onUsernameTextChanged(text)}"
+            app:layout_constraintStart_toEndOf="@+id/text_view_label"
+            app:layout_constraintTop_toBottomOf="@+id/flow_image"
+            app:layout_constraintVertical_bias="0.027"
+            android:autofillHints=""
+            tools:ignore="LabelFor" />
+
+        <TextView
+            android:id="@+id/text_view_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:text="@string/register_enter"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.192"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/flow_image"
+            app:layout_constraintVertical_bias="0.032"
+            tools:ignore="MissingConstraints" />
+
+        <ImageView
+            android:id="@+id/flow_image"
+            android:layout_width="173dp"
+            android:layout_height="161dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="45dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_text"
+            app:srcCompat="@drawable/flowy"
+            android:contentDescription="@string/caption_flowing" />
+
+        <TextView
+            android:id="@+id/prompt"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="4dp"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:text="@{welcomeViewModel.registered ? null : @string/welcome_prompt}"
+            android:textColor="@color/ocean"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toTopOf="@+id/fab_unlock"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_edit_password" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_unlock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="18dp"
+            android:layout_marginEnd="18dp"
+            android:tint="@color/white"
+            android:onClick="@{() -> welcomeViewModel.onUnlock()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:srcCompat="@android:drawable/ic_partial_secure"
+            tools:layout_editor_absoluteX="339dp"
+            android:contentDescription="@string/caption_unlock" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="18dp"
+            android:layout_marginEnd="18dp"
+            android:tint="@color/white"
+            android:onClick="@{() -> welcomeViewModel.onSignup()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/fab_unlock"
+            app:srcCompat="@android:drawable/ic_input_get"
+            android:contentDescription="@string/caption_register" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
