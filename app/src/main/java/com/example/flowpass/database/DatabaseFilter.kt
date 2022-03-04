@@ -22,6 +22,9 @@ class DatabaseFilter(private val activity: FragmentActivity) {
                 entry.key2.length < 15 && entry.key3.length < 15
     }
 
+    fun importDb(): Boolean { return dbObject.importDb() }
+    fun exportDb(): Boolean { return dbObject.exportDb() }
+
     // Encrypt and send a new entry to the database
     fun addEntry(entry: Entry) {
         try {
