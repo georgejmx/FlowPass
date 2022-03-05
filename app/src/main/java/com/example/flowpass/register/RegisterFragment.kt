@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.flowpass.MainActivity
 import com.example.flowpass.R
+import com.example.flowpass.database.DatabaseFilter
 import com.example.flowpass.databinding.FragmentRegisterBinding
 import java.security.MessageDigest
 import java.util.regex.Pattern
@@ -99,6 +100,18 @@ class RegisterFragment : Fragment() {
             findNavController(this).navigate(action)
         }
         viewModel.onRegisterComplete()
+    }
+
+    // Import a backup database to bind to registration
+    private fun onRegisterWithBackup() {
+        val dbFilter = DatabaseFilter(requireActivity())
+        if (!dbFilter.importDb()) {
+            showWarning("database could not be imported")
+            return
+        }
+
+        // So we have imported a backup that has a predefined passcode
+        showWarning("app configured to backup database")
     }
 
 }

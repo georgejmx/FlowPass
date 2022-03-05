@@ -6,31 +6,29 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.os.Build
 import android.os.Environment
 import android.os.FileUtils
 import android.util.Log
-import androidx.annotation.RequiresApi
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.lang.Exception
-import java.nio.channels.FileChannel
 
 /**
  * Class that directly manipulates the encrypted sqlite db. Performs CRUD operations on
  * binary data
  */
-class DatabaseObject(context: Context, factory: SQLiteDatabase.CursorFactory?) :
+class DatabaseObject(val context: Context, factory: SQLiteDatabase.CursorFactory?) :
     SQLiteOpenHelper(context, "reservoir.db", factory, 1){
 
     // Where the sqlite database file is stored for the running app
-    val dbFilepath = context.applicationInfo.dataDir + "/databases/reservoir.db"
-    
-    /* NOTE: Use 'context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)' as path
-    for the recommended public app storage, which is unfortunately invisible to user */
-    val backupPath = "/storage/emulated/0/Download/reservoir.db"
-    val context = context
+    private val dbFilepath = context.applicationInfo.dataDir + "/databases/reservoir.db"
+
+    // Locations where backup file is created. One available to user and one in somewhat
+    // hidden app downloads directory
+    private val publicBackupPath = "/storage/emulated/0/Download/reservoir.db"
+    private val hiddenBackupPath = context.getExternalFilesDir(
+        Environment.DIRECTORY_DOWNLOADS)!!.path + "/reservoir.db"
 
     // Initialise the encrypted db
     override fun onCreate(db: SQLiteDatabase) {
@@ -42,34 +40,44 @@ class DatabaseObject(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         db.execSQL(query)
     }
 
-    // Copies encrypted backup to app process database
+    // Copies encrypted backup to app process database. First attempts to use the public
+    // backup. If this has been deleted by the user or system, use hidden backup
     fun importDb(): Boolean {
         this.close()
-        val importAppDb = File(backupPath)
+        val importAppDb = if (File(publicBackupPath).exists()) {
+            File(publicBackupPath)
+        } else if (File(hiddenBackupPath).exists()) {
+            File(hiddenBackupPath)
+        } else return false
         val existingAppDb = File(dbFilepath)
-        // If it exists, copy the backup database into the app one
-        if (importAppDb.exists()) {
-            FileUtils.copy(FileInputStream(importAppDb), FileOutputStream(existingAppDb))
-            // Access new app database so it gets cached
-            writableDatabase.close()
-            return true
-        }
-        return false
+
+        // Copy the selected backup database into the app one, using FileUtils
+        val toStream = FileOutputStream(existingAppDb)
+        FileUtils.copy(FileInputStream(importAppDb), toStream)
+        Log.i("DatabaseObject", "Import hash: ${toStream.hashCode()}")
+        // Access new app database so it gets cached
+        writableDatabase.close()
+        return true
     }
 
-    // Exports app process database to backup
+    // Exports app process database to backup locations
     fun exportDb(): Boolean {
         return try {
             this.close()
             val existingAppDb = File(dbFilepath)
-            val exportAppDb = File(backupPath)
-            val stream1 = FileInputStream(existingAppDb)
-            val stream2 = FileOutputStream(exportAppDb)
-            FileUtils.copy(stream1, stream2)
-            stream1.close()
-            Log.i("filet", stream2.hashCode().toString())
-            stream2.flush()
-            stream2.close()
+            val exportAppDbs = arrayOf(File(hiddenBackupPath), File(publicBackupPath))
+            val fromStream = FileInputStream(existingAppDb)
+            val toStreams = arrayOf(
+                FileOutputStream(exportAppDbs[0]), FileOutputStream(exportAppDbs[1]))
+            FileUtils.copy(fromStream, toStreams[0])
+            FileUtils.copy(fromStream, toStreams[1])
+            fromStream.close()
+            Log.i("DatabaseObject", "Export hash 1: ${toStreams[0].hashCode()}")
+            Log.i("DatabaseObject", "Export hash 2: ${toStreams[1].hashCode()}")
+            toStreams[0].flush()
+            toStreams[1].flush()
+            toStreams[0].close()
+            toStreams[1].close()
             true
         } catch (err: Exception) {
             err.printStackTrace()
@@ -187,17 +195,4 @@ class DatabaseObject(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         db.close()
     }
 
-//    // Performs a file copy, transferring all data from 'file1' to 'file2'
-//    private fun copySystemFile(file1: FileInputStream, file2: FileOutputStream): Boolean {
-//        try {
-//            val fromChannel: FileChannel = file1.channel
-//            val toChannel: FileChannel = file2.channel
-//            fromChannel.transferTo(0, fromChannel.size(), toChannel)
-//            fromChannel.close()
-//            toChannel.close()
-//        } catch (err: Exception) {
-//            return false
-//        }
-//        return true
-//    }
 }

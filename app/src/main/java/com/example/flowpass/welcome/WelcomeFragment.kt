@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.flowpass.MainActivity
 import com.example.flowpass.R
+import com.example.flowpass.database.DatabaseFilter
 import com.example.flowpass.databinding.FragmentWelcomeBinding
 import java.io.File
 import java.security.MessageDigest
@@ -31,7 +32,6 @@ class WelcomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_welcome, container, false
         )

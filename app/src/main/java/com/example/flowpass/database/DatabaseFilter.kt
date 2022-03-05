@@ -22,7 +22,10 @@ class DatabaseFilter(private val activity: FragmentActivity) {
                 entry.key2.length < 15 && entry.key3.length < 15
     }
 
+    // Allows fragments to import a backup database into the app
     fun importDb(): Boolean { return dbObject.importDb() }
+
+    // If already validated, exports a copy of the encrypted app database to backup location
     fun exportDb(): Boolean { return dbObject.exportDb() }
 
     // Encrypt and send a new entry to the database
