@@ -32,7 +32,6 @@ class RegisterFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_register, container, false
         )
@@ -40,8 +39,10 @@ class RegisterFragment : Fragment() {
         binding.registerViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        // Generate seed phrase upon fragment creation
+        viewModel.seed = generateRandomPurity()
         viewModel.eventRegister.observe(viewLifecycleOwner, {
-            hasRegistered -> if(hasRegistered) { onRegister() }
+                hasRegistered -> if(hasRegistered) { onRegister() }
         })
 
         Log.i("RegisterFragment", "created")
@@ -59,7 +60,7 @@ class RegisterFragment : Fragment() {
     // use in encryption. Could be made user generated in the future
     private fun generateRandomPurity(): String {
         val metals = arrayOf(
-            "Calcium", "Magnesium", "Lithium", "Zinc", "Strontium", "Iron"
+            "Ca", "Mg", "Li", "Zi", "St", "Fe"
         )
         val getNum = { (1..12).shuffled().first().toString() }
         val getMetalInt = { (0..5).shuffled().first() }
@@ -88,14 +89,18 @@ class RegisterFragment : Fragment() {
         val pass = viewModel.passwordStrings.value!![0]
         val passCheck = viewModel.passwordStrings.value!![1]
         if (pass.isEmpty()) {
-            showWarning("No passcode entered")
+            showWarning("No passcode entered ${viewModel.seed}")
         } else if (pass != passCheck) {
             showWarning("Passwords are not equal")
         } else if (!isValid(pass)) {
             showWarning("Password failed validation criteria")
-        } else {
+        } else if (!isValid(viewModel.seed)) {
+            showWarning("Backup seed failed validation")
+        }
+
+        else {
             // Create the reservoir; setting security keys and seed
-            (activity as MainActivity).rvr.create(passToHash(pass), generateRandomPurity())
+            (activity as MainActivity).rvr.create(passToHash(pass), viewModel.seed)
             val action = RegisterFragmentDirections.actionRegisterFragmentToWelcomeFragment()
             findNavController(this).navigate(action)
         }

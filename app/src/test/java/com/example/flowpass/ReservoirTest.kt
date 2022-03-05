@@ -35,7 +35,7 @@ class ReservoirTest {
     fun reservoirCreationValidationFails() {
         // check creation of reservoir
         val rvr = Reservoir(File(rootDir))
-        rvr.create(passToHash("pass1"), generateRandomPurity())
+        rvr.create(passToHash("pass1"), "b2")
         assertTrue(File("vZx45c").exists())
         assertTrue(File("B6e4Vj").exists())
 
@@ -50,7 +50,7 @@ class ReservoirTest {
     fun entryStoreAndRetrievalWorks() {
         // initialise reservoir
         val rvr = Reservoir(File(rootDir))
-        rvr.create(passToHash("pass1"), generateRandomPurity())
+        rvr.create(passToHash("pass1"), "123456789012345678901234567890")
         val res = rvr.open(passToHash("pass1"))
         assertTrue(res)
 
