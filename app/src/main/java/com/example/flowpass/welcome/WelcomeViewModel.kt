@@ -13,10 +13,15 @@ class WelcomeViewModel : ViewModel() {
     // Marks whether the app has been registered or not
     var isRegistered: Boolean = false
 
-    // Event that triggers unlocking of the database
+    // Event that triggers reistration
     private val _eventSignup = MutableLiveData<Boolean>()
     val eventSignup: LiveData<Boolean>
         get() = _eventSignup
+
+    // Event that triggers loading backup
+    private val _eventLoadBackup = MutableLiveData<Boolean>()
+    val eventLoadBackup: LiveData<Boolean>
+        get() = _eventLoadBackup
 
     // Event that triggers unlocking of the database
     private val _eventUnlock = MutableLiveData<Boolean>()
@@ -41,6 +46,12 @@ class WelcomeViewModel : ViewModel() {
 
     // Reset this variable to what it was before
     fun onSignupComplete() { _eventSignup.value = false }
+
+    // Navigate to the load screen
+    fun onLoadBackup() { _eventLoadBackup.value = true }
+
+    // Reset this variable to what it was before
+    fun onLoadBackupComplete() { _eventLoadBackup.value = false }
 
     // Attempt unlock of the database
     fun onUnlock() { _eventUnlock.value = true }

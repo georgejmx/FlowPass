@@ -1,5 +1,6 @@
 package com.example.flowpass
 
+import android.util.Log
 import com.example.flowpass.database.Entry
 import com.example.flowpass.database.Silt
 import java.io.File
@@ -107,7 +108,7 @@ class Reservoir(dir: File) {
             val purity = File(directory, "vZx45c").readText(Charset.defaultCharset())
             predictedPurity == purity
         } catch (err: GeneralSecurityException) {
-            // Log this
+            Log.i("Reservoir", "error when validating reservoir")
             false
         }
     }

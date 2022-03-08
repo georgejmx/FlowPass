@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- UI elements and appearance of the Load screen -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="loadViewModel"
+            type="com.example.flowpass.load.LoadViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        tools:context=".load.LoadFragment">
+
+        <TextView
+            android:id="@+id/add_title_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="26dp"
+            android:text="Load Flow"
+            android:fontFamily="@font/aladin"
+            android:textColor="@color/grey"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/tank_image"
+            app:layout_constraintHorizontal_bias="1.4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/tank_image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="34dp"
+            android:layout_marginEnd="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/tank"
+            android:contentDescription="@string/register_caption" />
+
+        <EditText
+            android:id="@+id/text_password_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp"
+            android:layout_marginStart="5dp"
+            android:autofillHints="@string/register_enter"
+            android:backgroundTint="@color/black"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:onTextChanged="@{(text, start, before, count) -> loadViewModel.onPassTextChanged(text)}"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text_label_1"
+            app:layout_constraintTop_toBottomOf="@+id/tank_image"
+            tools:ignore="LabelFor" />
+
+        <TextView
+            android:id="@+id/text_label_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25sp"
+            android:layout_marginTop="22dp"
+            android:text="@string/register_enter"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tank_image"
+            app:layout_constraintVertical_bias="0.032"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/text_path"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:layout_marginStart="5dp"
+            android:autofillHints=""
+            android:backgroundTint="@color/black"
+            android:ems="10"
+            android:text="/storage/emulated/0/Download/reservoir"
+            android:onTextChanged="@{(text, start, before, count) -> loadViewModel.onPathTextChanged(text)}"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text_label_2"
+            app:layout_constraintTop_toBottomOf="@+id/text_password_1"
+            tools:ignore="LabelFor"
+            android:inputType="text" />
+
+
+        <TextView
+            android:id="@+id/text_label_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25sp"
+            android:layout_marginTop="32dp"
+            android:text="Backup \nLocation:"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_label_1"
+            app:layout_constraintVertical_bias="0.07"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/seed_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40sp"
+            android:layout_marginTop="31dp"
+            android:text="Backup \nSeed:"
+            android:textColor="@color/red"
+            android:textSize="16sp"
+            android:fontFamily="@font/aladin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_label_2"
+            app:layout_constraintVertical_bias="0.032"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/seed_text"
+            android:layout_width="190sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp"
+            android:layout_marginStart="5dp"
+            android:autofillHints=""
+            android:backgroundTint="@color/black"
+            android:ems="10"
+            android:inputType="text"
+            android:onTextChanged="@{(text, start, before, count) -> loadViewModel.onSeedTextChanged(text)}"
+            android:textColor="@color/orange"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text_label_2"
+            app:layout_constraintTop_toBottomOf="@+id/text_path"
+            tools:ignore="LabelFor" />
+
+        <TextView
+            android:id="@+id/prompt"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="4dp"
+            android:gravity="center"
+            android:text="@{loadViewModel.prompt}"
+            android:textColor="@color/ocean"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toTopOf="@+id/fab_complete"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/seed_text" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_complete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="18dp"
+            android:layout_marginEnd="18dp"
+            android:tint="@color/white"
+            android:onClick="@{() -> loadViewModel.onLoad()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_send"
+            tools:layout_editor_absoluteX="339dp"
+            android:contentDescription="@string/register_confirm" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

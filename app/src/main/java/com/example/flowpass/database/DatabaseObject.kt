@@ -26,7 +26,7 @@ class DatabaseObject(val context: Context, factory: SQLiteDatabase.CursorFactory
 
     // Locations where backup file is created. One available to user and one in somewhat
     // hidden app downloads directory
-    private val publicBackupPath = "/storage/emulated/0/Download/reservoir.db"
+    private val publicBackupPath = "/storage/emulated/0/Download/reservoir"
     private val hiddenBackupPath = context.getExternalFilesDir(
         Environment.DIRECTORY_DOWNLOADS)!!.path + "/reservoir.db"
 
@@ -42,10 +42,12 @@ class DatabaseObject(val context: Context, factory: SQLiteDatabase.CursorFactory
 
     // Copies encrypted backup to app process database. First attempts to use the public
     // backup. If this has been deleted by the user or system, use hidden backup
-    fun importDb(): Boolean {
+    fun importDb(path: String): Boolean {
+        // Access new app database so it gets cached
+        writableDatabase.close()
         this.close()
-        val importAppDb = if (File(publicBackupPath).exists()) {
-            File(publicBackupPath)
+        val importAppDb = if (File(path).exists()) {
+            File(path)
         } else if (File(hiddenBackupPath).exists()) {
             File(hiddenBackupPath)
         } else return false
@@ -58,6 +60,26 @@ class DatabaseObject(val context: Context, factory: SQLiteDatabase.CursorFactory
         // Access new app database so it gets cached
         writableDatabase.close()
         return true
+    }
+
+    // Exports app process database to backup locations
+    fun exportDbSlim(): Boolean {
+        return try {
+            this.close()
+            val existingAppDb = File(dbFilepath)
+            val exportAppDb = File(hiddenBackupPath)
+            val fromStream = FileInputStream(existingAppDb)
+            val toStream = FileOutputStream(exportAppDb)
+            FileUtils.copy(fromStream, toStream)
+            fromStream.close()
+            Log.i("DatabaseObject", "Export hash 1: ${toStream.hashCode()}")
+            toStream.flush()
+            toStream.close()
+            true
+        } catch (err: Exception) {
+            err.printStackTrace()
+            false
+        }
     }
 
     // Exports app process database to backup locations

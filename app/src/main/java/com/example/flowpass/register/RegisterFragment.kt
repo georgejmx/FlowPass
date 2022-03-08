@@ -59,9 +59,7 @@ class RegisterFragment : Fragment() {
     // Generates a random string that has 26873856 possible combinations, for
     // use in encryption. Could be made user generated in the future
     private fun generateRandomPurity(): String {
-        val metals = arrayOf(
-            "Ca", "Mg", "Li", "Zi", "St", "Fe"
-        )
+        val metals = arrayOf("Ca", "Mg", "Li", "Zi", "St", "Fe")
         val getNum = { (1..12).shuffled().first().toString() }
         val getMetalInt = { (0..5).shuffled().first() }
         val resultBuild = StringBuilder()
@@ -105,18 +103,6 @@ class RegisterFragment : Fragment() {
             findNavController(this).navigate(action)
         }
         viewModel.onRegisterComplete()
-    }
-
-    // Import a backup database to bind to registration
-    private fun onRegisterWithBackup() {
-        val dbFilter = DatabaseFilter(requireActivity())
-        if (!dbFilter.importDb()) {
-            showWarning("database could not be imported")
-            return
-        }
-
-        // So we have imported a backup that has a predefined passcode
-        showWarning("app configured to backup database")
     }
 
 }

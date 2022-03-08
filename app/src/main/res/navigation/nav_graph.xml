@@ -18,6 +18,9 @@ links between those pages -->
         <action
             android:id="@+id/action_WelcomeFragment_to_RegisterFragment"
             app:destination="@id/RegisterFragment" />
+        <action
+            android:id="@+id/action_WelcomeFragment_to_LoadFragment"
+            app:destination="@id/LoadFragment" />
     </fragment>
     <fragment
         android:id="@+id/RegisterFragment"
@@ -27,6 +30,15 @@ links between those pages -->
         <action
             android:id="@+id/action_RegisterFragment_to_WelcomeFragment"
             app:destination="@id/WelcomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/LoadFragment"
+        android:name="com.example.flowpass.load.LoadFragment"
+        android:label="Load"
+        tools:layout="@layout/fragment_load">
+        <action
+            android:id="@+id/action_LoadFragment_to_HomeFragment"
+            app:destination="@id/HomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/HomeFragment"
