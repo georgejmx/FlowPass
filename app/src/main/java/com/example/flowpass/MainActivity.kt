@@ -9,10 +9,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.flowpass.databinding.ActivityMainBinding
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.nio.channels.FileChannel
 
 /**
   * A class that manages macro UI features of the whole app, such as the navigation bar and

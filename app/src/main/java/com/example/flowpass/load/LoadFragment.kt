@@ -1,11 +1,15 @@
 package com.example.flowpass.load
 
+import android.Manifest
+import android.app.Activity.RESULT_CANCELED
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -60,13 +64,45 @@ class LoadFragment : Fragment() {
 
     // Navigate to the home screen once the app has been unlocked
     private fun onLoad() {
-        val pass = viewModel.password.value
-        val location = viewModel.path.value!!
-        val seed = viewModel.seed.value
-        if (pass.isNullOrEmpty() || seed.isNullOrEmpty()) {
+        if (viewModel.password.value.isNullOrEmpty() || viewModel.seed.value.isNullOrEmpty()) {
             showWarning("Passcode and seed must be entered.")
             return
         }
+
+        // Requesting permission to load files
+        if (checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+            != PackageManager.PERMISSION_GRANTED) {
+            if (shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                showWarning("need permission to read passwords backup")
+            }
+            requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 96674)
+        } else {
+            importCreateAndCheck()
+        }
+    }
+
+    // Watches for when permission result comes through
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode != RESULT_CANCELED && requestCode == 96674) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                importCreateAndCheck()
+            } else {
+                showWarning("permission not granted")
+                viewModel.onLoadComplete()
+            }
+        }
+    }
+
+    // Does the import and setup if permissions have come through
+    private fun importCreateAndCheck() {
+        val pass = viewModel.password.value!!
+        val location = viewModel.path.value!!
+        val seed = viewModel.seed.value!!
 
         // Import a backup database to bind to registration
         val dbFilter = DatabaseFilter(requireActivity())
