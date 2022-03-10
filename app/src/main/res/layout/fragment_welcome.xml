@@ -55,7 +55,7 @@
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.192"
+            app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/flow_image"
             app:layout_constraintVertical_bias="0.032"
@@ -116,5 +116,19 @@
             app:layout_constraintEnd_toStartOf="@+id/fab_unlock"
             app:srcCompat="@android:drawable/ic_input_get"
             android:contentDescription="@string/caption_register" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_load"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="18dp"
+            android:layout_marginEnd="18dp"
+            android:tint="@color/white"
+            android:onClick="@{() -> welcomeViewModel.onLoadBackup()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/fab_register"
+            app:srcCompat="@android:drawable/ic_menu_mapmode"
+            android:contentDescription="Load Backup Button" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

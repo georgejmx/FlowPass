@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- UI elements and appearance of the Register screen -->
+<!-- UI elements and appearance of the Load screen -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
-            name="registerViewModel"
-            type="com.example.flowpass.register.RegisterViewModel" />
+            name="loadViewModel"
+            type="com.example.flowpass.load.LoadViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
-        tools:context=".register.RegisterFragment">
+        tools:context=".load.LoadFragment">
 
         <TextView
             android:id="@+id/add_title_label"
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
             android:layout_marginEnd="26dp"
-            android:text="@string/register_title"
+            android:text="Load Flow"
             android:fontFamily="@font/aladin"
             android:textColor="@color/grey"
             android:textSize="35sp"
@@ -53,7 +53,7 @@
             android:backgroundTint="@color/black"
             android:ems="10"
             android:inputType="textPassword"
-            android:onTextChanged="@{(text, start, before, count) -> registerViewModel.onPassTextChanged(1, text)}"
+            android:onTextChanged="@{(text, start, before, count) -> loadViewModel.onPassTextChanged(text)}"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/text_label_1"
@@ -76,7 +76,7 @@
             tools:ignore="MissingConstraints" />
 
         <EditText
-            android:id="@+id/text_password_2"
+            android:id="@+id/text_path"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="44dp"
@@ -84,13 +84,14 @@
             android:autofillHints=""
             android:backgroundTint="@color/black"
             android:ems="10"
-            android:inputType="textPassword"
-            android:onTextChanged="@{(text, start, before, count) -> registerViewModel.onPassTextChanged(2, text)}"
+            android:text="reservoir"
+            android:onTextChanged="@{(text, start, before, count) -> loadViewModel.onPathTextChanged(text)}"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/text_label_2"
             app:layout_constraintTop_toBottomOf="@+id/text_password_1"
-            tools:ignore="LabelFor" />
+            tools:ignore="LabelFor"
+            android:inputType="text" />
 
 
         <TextView
@@ -99,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="25sp"
             android:layout_marginTop="32dp"
-            android:text="@string/register_confirm"
+            android:text="Backup \nLocation:"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -134,12 +135,11 @@
             android:backgroundTint="@color/black"
             android:ems="10"
             android:inputType="text"
-            android:text="@{registerViewModel.seed}"
-            android:onTextChanged="@{(text, start, before, count) -> registerViewModel.onSeedTextChanged(text)}"
+            android:onTextChanged="@{(text, start, before, count) -> loadViewModel.onSeedTextChanged(text)}"
             android:textColor="@color/orange"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/text_label_2"
-            app:layout_constraintTop_toBottomOf="@+id/text_password_2"
+            app:layout_constraintTop_toBottomOf="@+id/text_path"
             tools:ignore="LabelFor" />
 
         <TextView
@@ -149,27 +149,13 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="4dp"
             android:gravity="center"
-            android:text="@string/register_prompt"
+            android:text="@{loadViewModel.prompt}"
             android:textColor="@color/ocean"
             android:textSize="16sp"
             android:textStyle="italic"
-            app:layout_constraintBottom_toTopOf="@+id/password_prompt"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/seed_text" />
-
-        <TextView
-            android:id="@+id/password_prompt"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginEnd="14dp"
-            android:gravity="center"
-            android:text="@{registerViewModel.passwordPrompt}"
-            android:textColor="@color/river"
-            android:textSize="14sp"
-            android:textStyle="italic"
             app:layout_constraintBottom_toTopOf="@+id/fab_complete"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/prompt" />
+            app:layout_constraintTop_toBottomOf="@id/seed_text" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_complete"
@@ -179,7 +165,7 @@
             android:layout_marginBottom="18dp"
             android:layout_marginEnd="18dp"
             android:tint="@color/white"
-            android:onClick="@{() -> registerViewModel.onRegister()}"
+            android:onClick="@{() -> loadViewModel.onLoad()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:srcCompat="@android:drawable/ic_menu_send"

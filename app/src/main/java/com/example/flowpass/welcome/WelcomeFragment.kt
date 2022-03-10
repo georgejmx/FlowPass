@@ -10,8 +10,10 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.flowpass.MainActivity
 import com.example.flowpass.R
+import com.example.flowpass.database.DatabaseFilter
 import com.example.flowpass.databinding.FragmentWelcomeBinding
 import java.io.File
 import java.security.MessageDigest
@@ -31,7 +33,6 @@ class WelcomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_welcome, container, false
         )
@@ -44,6 +45,9 @@ class WelcomeFragment : Fragment() {
         }
         viewModel.eventSignup.observe(viewLifecycleOwner, {
                 hasSigned -> if(hasSigned) { onSignup() }
+        })
+        viewModel.eventLoadBackup.observe(viewLifecycleOwner, {
+                hasLoaded -> if(hasLoaded) { onLoadBackup() }
         })
         viewModel.eventUnlock.observe(viewLifecycleOwner, {
             hasUnlocked -> if(hasUnlocked) { onUnlock() }
@@ -70,6 +74,18 @@ class WelcomeFragment : Fragment() {
             findNavController(this).navigate(action)
         }
         viewModel.onSignupComplete()
+    }
+
+    // Navigate to the load screen when user wants to load backup
+    private fun onLoadBackup() {
+        if (viewModel.isRegistered) {
+            showWarning("This device has been registered. Either simply login, " +
+                    "or click options menu to reset first before loading a backup.")
+        } else {
+            val action = WelcomeFragmentDirections.actionWelcomeFragmentToLoadFragment()
+            findNavController(this).navigate(action)
+        }
+        viewModel.onLoadBackupComplete()
     }
 
     // Navigate to the home screen once the app has been unlocked

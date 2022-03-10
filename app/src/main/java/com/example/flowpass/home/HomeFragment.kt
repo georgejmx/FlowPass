@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.flowpass.MainActivity
 import com.example.flowpass.R
+import com.example.flowpass.database.DatabaseFilter
 import com.example.flowpass.databinding.FragmentHomeBinding
 
 /**
@@ -66,6 +67,11 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    // Display a short message to the UI
+    private fun showWarning(msg: String) {
+        Toast.makeText(requireActivity().applicationContext, msg, Toast.LENGTH_LONG).show()
+    }
+
     // Stores information about a clicked password entry, that can be passed to Edit/Delete
     private fun processSelect(entryId: Int) { viewModel.onEntrySelected(entryId) }
 
@@ -81,6 +87,10 @@ class HomeFragment : Fragment() {
         Log.i("HomeFragment", "exiting secure app")
         (activity as MainActivity).rvr.close()
         findNavController().navigate(R.id.action_HomeFragment_to_WelcomeFragment)
+        val dbFilter = DatabaseFilter(requireActivity())
+        if (!dbFilter.exportDb()) {
+            showWarning("database backup failed")
+        }
         viewModel.onExitComplete()
     }
 

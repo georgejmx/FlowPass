@@ -10,5 +10,7 @@
     <color name="black">#ff000000</color>
     <color name="grey">#888</color>
     <color name="white">#fff</color>
+    <color name="red">#5E0505</color>
+    <color name="orange">#F44336</color>
     <color name="rocks">@color/ocean</color>
 </resources>
