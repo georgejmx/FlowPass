@@ -23,7 +23,7 @@ class DatabaseFilter(private val activity: FragmentActivity) {
     }
 
     // Allows fragments to import a backup database into the app
-    fun importDb(loc: String): Boolean { return dbObject.importDb(loc) }
+    fun importDb(name: String): Boolean { return dbObject.importDb(name) }
 
     // If already validated, exports a copy of the encrypted app database to backup location
     fun exportDb(): Boolean { return dbObject.exportDb() }

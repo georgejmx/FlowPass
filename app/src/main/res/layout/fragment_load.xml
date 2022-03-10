@@ -84,7 +84,7 @@
             android:autofillHints=""
             android:backgroundTint="@color/black"
             android:ems="10"
-            android:text="/storage/emulated/0/Download/reservoir"
+            android:text="reservoir"
             android:onTextChanged="@{(text, start, before, count) -> loadViewModel.onPathTextChanged(text)}"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"

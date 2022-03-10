@@ -32,7 +32,7 @@ class LoadViewModel : ViewModel() {
         get() = _seed
 
     init {
-        _path.value = "/storage/emulated/0/Download/reservoir"
+        _path.value = "reservoir"
         Log.i("LoadViewModel", "created")
     }
 

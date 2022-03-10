@@ -25,7 +25,7 @@ class HomeAdapter(
     // Data that is passed to the UI from this object, using LiveData bindings
     var data: List<Entry> = emptyList()
         get() {
-            return getTuples()
+            return orderEntries(getTuples())
         }
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
@@ -54,6 +54,11 @@ class HomeAdapter(
     // Get the view using db data, slap it on the UI
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
+    }
+
+    // Orders entries alphabetically by name
+    private fun orderEntries(unordered: List<Entry>): List<Entry> {
+        return unordered.sortedBy { it.name }
     }
 
     // Interface to [DatabaseFilter]

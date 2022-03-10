@@ -46,6 +46,7 @@ class DatabaseObject(val context: Context, factory: SQLiteDatabase.CursorFactory
         db.execSQL(query)
     }
 
+    // Copy a file from app downloads into sqlite db location
     private fun copyFromAppDownloads(): Boolean {
         // Access new app database so it gets cached
         writableDatabase.close()
@@ -61,9 +62,9 @@ class DatabaseObject(val context: Context, factory: SQLiteDatabase.CursorFactory
         return true
     }
 
-    // Copies encrypted backup to app process database. First attempts to use the public
-    // backup. If this has been deleted by the user or system, use hidden backup
-    fun importDb(path: String): Boolean {
+    // Copies encrypted backup to app process database. Fetches an item from the media
+    // store to the local app downloads directory, then copies this for use by sqlite
+    fun importDb(dbName: String): Boolean {
         try {
             // Preparing MediaStore query
             val collection = MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL)
@@ -72,7 +73,7 @@ class DatabaseObject(val context: Context, factory: SQLiteDatabase.CursorFactory
                 MediaStore.Files.FileColumns.DISPLAY_NAME
             )
             val selection = "${MediaStore.Files.FileColumns.DISPLAY_NAME} == ?"
-            val selectionArgs = arrayOf("reservoir")
+            val selectionArgs = arrayOf(dbName)
             val sortOrder = "${MediaStore.Files.FileColumns.DISPLAY_NAME} ASC"
 
             // Executing query
