@@ -84,7 +84,7 @@ class MenuController(val activity: MainActivity) {
     fun showAbout() {
         val title = "About"
         val msg = "FlowPass; a light and secure password storage app\n\n" +
-                "Version: 0.2\n" +
+                "Version: 0.4\n" +
                 "Created and maintained by: peteburns\n" +
                 "Encryption standard: MD5 hashing, obfuscated AES symmetric data storage"
         basicAlert(title, msg, 2)
